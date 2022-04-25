@@ -5,6 +5,11 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+
+    imageURL:{
+        type: String,
+        required: true
+    },
     
     price:{
         type: Number,
