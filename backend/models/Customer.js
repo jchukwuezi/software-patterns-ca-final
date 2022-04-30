@@ -6,7 +6,12 @@ const CustomerSchema = new mongoose.Schema({
         required: true
     },
     
-    email:{
+    username:{
+        type: String, 
+        required: true
+    },
+
+    address:{
         type: String, 
         required: true
     },
