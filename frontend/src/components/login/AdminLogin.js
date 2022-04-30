@@ -12,7 +12,8 @@ const AdminLogin = () =>{
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
-        fetch("", {
+        fetch("http://localhost:4000/api/admins/login", {
+            credentials: 'include',
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
@@ -30,7 +31,7 @@ const AdminLogin = () =>{
             else{
                 alert('Login successful')
                 console.log(`New user ${adminName} added`)
-                navigate("")
+                navigate("/admin/homepage")
             }
         })
     }

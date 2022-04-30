@@ -6,11 +6,6 @@ const ProductSchema = new mongoose.Schema({
         required: true
     },
 
-    imageURL:{
-        type: String,
-        required: true
-    },
-    
     price:{
         type: Number,
         required: true
@@ -22,13 +17,13 @@ const ProductSchema = new mongoose.Schema({
     },
 
     manufacturer:{
-        type: Number,
+        type: String,
         required: true
     },
 
     stockLevel:{
         type: Number,
-        required: true
+        default: 10
     },
 
     reviews: [
