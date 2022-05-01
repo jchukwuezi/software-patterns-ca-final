@@ -80,7 +80,7 @@ const ViewProductsAdmin = () => {
                         {productData.stockLevel < 3 ? 
                             <Badge bg="danger" className="mb-3">Low Stock</Badge>
                         :null}
-                         <Card.Text className="mb-2">€{productData.price} Goal</Card.Text>
+                         <Card.Text className="mb-2">€{productData.price} </Card.Text>
                         <Link to={`/admin/products/${productData._id}`}>
                             <Button variant="success">View Product</Button>
                         </Link>

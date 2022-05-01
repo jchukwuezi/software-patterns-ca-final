@@ -1,8 +1,10 @@
-const express = require('express')
+const express = require('express');
+const Cart = require('../../models/Cart');
 const Product = require('../../models/Product')
+const Customer = require('../../models/Customer')
 const router = express.Router()
 
-router.get("/", async (req, res)=>{
+router.get("/all", async (req, res)=>{
     const sessCustomer = req.session.customer;
     if(sessCustomer){
         const products = await Product.find({ stockLevel: {$gte:0}})
@@ -96,6 +98,14 @@ router.post("/add", async (req, res)=>{
         console.log("Not authorized to make this request")
         res.status(404).send("Unauthorized")
     }
+})
+
+
+
+router.post("")
+
+router.post("/buy", async (req, res)=>{
+
 })
 
 router.post("/update/:id", (req, res)=>{

@@ -1,5 +1,6 @@
 const express = require('express')
 const Customer = require('../../models/Customer')
+const Cart = require('../../models/Cart')
 const bcrypt = require('bcryptjs')
 const router = express.Router()
 
@@ -40,7 +41,7 @@ router.post("/register", (req, res)=>{
     })
 })
 
-router.post("/login", (req, res)=>{
+router.post("/login", async (req, res)=>{
     const {username, password} = req.body;
     console.log('Login is being attempted')
     if(!username || !password){
@@ -50,8 +51,13 @@ router.post("/login", (req, res)=>{
     Customer.findOne({ username }).then((customer) => {
         if(!customer) return res.status(400).send('User does not exist')
 
-        bcrypt.compare(password, customer.password).then((isMatch) => {
+        bcrypt.compare(password, customer.password).then(async (isMatch) => {
             if(!isMatch) return res.status(400).send('Invalid credentials')
+            //create new cart
+            await new Cart({
+                customer: customer._id
+            }).save()
+            
             const sessCustomer = {
                 id: customer._id,
                 username: customer.username,
@@ -65,6 +71,7 @@ router.post("/login", (req, res)=>{
 
             res.status(200).send(`${sessCustomer.name} has successfully logged in to the application`)
             console.log('User has been found')
+            console.log("Cart created")
         })
     })
 })
@@ -83,7 +90,13 @@ router.get("/auth/customer", (req, res)=>{
     }
 })
 
-router.delete("/logout", (req, res)=>{
+
+router.delete("/logout", async (req, res)=>{
+    //delete the cart that user had if no purchases were made
+    await Cart.findOneAndDelete({
+        customer: req.session.customer.id
+    })
+
     req.session.destroy((err)=>{
         if(err) throw err;
         res.clearCookie("session-id")

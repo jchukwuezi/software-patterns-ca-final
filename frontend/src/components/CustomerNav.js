@@ -30,7 +30,7 @@ const CustomerNav = () => {
     }, [])
 
     const logout = () => {
-        fetch("http://localhost:4000/api/admins/logout", {
+        fetch("http://localhost:4000/api/customers/logout", {
             credentials: 'include',
             method: 'DELETE',
             headers: {"Content-Type": "application/json"},
@@ -47,18 +47,18 @@ const CustomerNav = () => {
     }
 
     return (
-        <Navbar variant="dark" bg="priamry">
+        <Navbar variant="dark" bg="primary">
             <Container>
-                <Navbar.Brand> Clothes Shop for Admins </Navbar.Brand>
+                <Navbar.Brand> Clothes Shop for Customers</Navbar.Brand>
                 <Navbar.Toggle />
                 <Nav>
-                    <Nav.Link onClick={()=> navigate("/admin/homepage")}>Home</Nav.Link>
+                    <Nav.Link onClick={()=> navigate("/customer/homepage")}>Home</Nav.Link>
                     {/*}
                     <Nav.Link>Groups</Nav.Link>
                     <Nav.Link>Account</Nav.Link>
                     */}
                     <Nav.Link onClick={()=>navigate("")}>View Products</Nav.Link>
-                    <Nav.Link onClick={()=>navigate("")}>Checkout</Nav.Link>
+                    <Nav.Link onClick={()=>navigate("/customer/cart")}>Checkout</Nav.Link>
                     <Nav.Link onClick={()=>navigate("")}>Purchase History</Nav.Link>
                     <Nav.Link onClick={logout}>Logout</Nav.Link>
                 </Nav>

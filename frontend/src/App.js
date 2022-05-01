@@ -4,6 +4,7 @@ import LandingPage from './components/LandingPage';
 import CustomerRegister from './components/register/CustomerRegister'
 import CustomerLogin from './components/login/CustomerLogin'
 import CustomerHomepage from './components/homepage/CustomerHomePage';
+import CustomerCart from './components/cart/CustomerCart';
 //admin components
 import AdminRegister from './components/register/AdminRegister'
 import AdminLogin from './components/login/AdminLogin'
@@ -22,6 +23,7 @@ function App() {
         <Route path="/customer/register" element={<CustomerRegister/>}/>
         <Route path="/customer/login" element={<CustomerLogin/>}/>
         <Route path="/customer/homepage" element={<CustomerHomepage/>}/>
+        <Route path="/customer/cart" element={<CustomerCart/>}/>
       </Routes>
     </div>
   )
