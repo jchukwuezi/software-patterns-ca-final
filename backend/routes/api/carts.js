@@ -71,15 +71,19 @@ router.post("/checkout", async (req, res)=>{
             customer: req.session.customer.id
         })
 
-        //update the stocklevels
+        //find total cost of cart
         for (let i=0; i<cart.items.length; i++){
-            const product = await Product.findById(cart.items[i].productId)
-            const newStockLevel = product.stockLevel - cart.items[i].quantity;
-            await product.update({stockLevel: newStockLevel})
-            //await product.update({$inc:{stockLevel : -cart.items[i].quantity}})
             const cost = cart.items[i].price * cart.items[i].quantity;
             totalCost+=cost;
         }
+
+        await cart.items.forEach(async (item)=>{
+            await Product.findByIdAndUpdate(
+                item.productId,
+                {$inc: {stockLevel: -item.quantity}}
+            )
+            console.log("Product updated")
+        })
 
         const newPurchase = new PurchaseHistory({
             customer: req.session.customer.id,

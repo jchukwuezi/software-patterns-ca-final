@@ -57,9 +57,9 @@ const CustomerNav = () => {
                     <Nav.Link>Groups</Nav.Link>
                     <Nav.Link>Account</Nav.Link>
                     */}
-                    <Nav.Link onClick={()=>navigate("")}>View Products</Nav.Link>
                     <Nav.Link onClick={()=>navigate("/customer/cart")}>Checkout</Nav.Link>
-                    <Nav.Link onClick={()=>navigate("")}>Purchase History</Nav.Link>
+                    <Nav.Link onClick={()=>navigate("/customer/history")}>Purchase History</Nav.Link>
+                    <Nav.Link onClick={()=>navigate("/customer/reviews")}>Reviews</Nav.Link>
                     <Nav.Link onClick={logout}>Logout</Nav.Link>
                 </Nav>
                 <Navbar.Collapse className="justify-content-end">

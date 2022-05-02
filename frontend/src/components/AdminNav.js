@@ -57,9 +57,9 @@ const AdminNav = () => {
                     <Nav.Link>Groups</Nav.Link>
                     <Nav.Link>Account</Nav.Link>
                     */}
-                    <Nav.Link onClick={()=>navigate("")}>View Products</Nav.Link>
+                    <Nav.Link onClick={()=>navigate("/admin/history")}>View History</Nav.Link>
                     <Nav.Link onClick={()=>navigate("/admin/add-product")}>Add Product</Nav.Link>
-                    <Nav.Link onClick={()=>navigate("")}>View Customers</Nav.Link>
+                    <Nav.Link onClick={()=>navigate("/admin/reviews")}>View Reviews</Nav.Link>
                     <Nav.Link onClick={logout}>Logout</Nav.Link>
                 </Nav>
                 <Navbar.Collapse className="justify-content-end">
