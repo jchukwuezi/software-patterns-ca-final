@@ -24,14 +24,7 @@ const ProductSchema = new mongoose.Schema({
     stockLevel:{
         type: Number,
         default: 10
-    },
-
-    reviews: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Review"
-        }
-    ]
+    }
 })
 
 module.exports = mongoose.model('Product', ProductSchema)
