@@ -16,6 +16,7 @@ const Admins = require('./routes/api/admins')
 const Products = require('./routes/api/products')
 const Reviews = require('./routes/api/reviews')
 const PurchaseHistories = require('./routes/api/purchasehistory')
+const Carts = require('./routes/api/carts')
 
 connectDB()
 const app = express();
@@ -51,6 +52,7 @@ app.use("/api/admins", Admins)
 app.use("/api/products", Products)
 app.use("/api/purchasehistories", PurchaseHistories)
 app.use("/api/reviews", Reviews)
+app.use("/api/carts", Carts)
 
 app.listen(4000, ()=>{
     console.log('Server has started')

@@ -102,16 +102,9 @@ router.post("/add", async (req, res)=>{
 
 
 
-router.post("")
-
-router.post("/buy", async (req, res)=>{
-
-})
 
 router.post("/update/:id", (req, res)=>{
     const productId = req.params.id;
-    
-
 })
 
 

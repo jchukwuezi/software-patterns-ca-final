@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import CustomerNav from "../CustomerNav";
 
 const CustomerCart = () =>{
-    const [cartData, setSubsData] = useState([])
+    const [cartData, setCartData] = useState([])
     const [state, setState] = useState({})
     const navigate = useNavigate()
 
@@ -16,7 +16,7 @@ const CustomerCart = () =>{
     }, [])
 
     const cartAPI = () =>{
-        fetch("http://localhost:4000/api/products/view", {
+        fetch("http://localhost:4000/api/carts/all", {
             credentials: 'include',
             method: 'GET',
             headers: {"Content-Type": "application/json"},
@@ -31,7 +31,7 @@ const CustomerCart = () =>{
                 console.log(res)
                 const getData = async() =>{
                     const data = await res.json()
-                    setSubsData(data.cart)
+                    setCartData(data.cartItems)
                 }
                 getData()
             }
@@ -83,8 +83,9 @@ const CustomerCart = () =>{
                 {cartData.map((cartData, k) => (
                 <Row className="p-2 border rounded mt-2" key={k}>
                     <Col> 
-                        <h1>{cartData.products.name}</h1>
-                        <h4>Amount: €{cartData.products.price}</h4>
+                        <h1>{cartData.name}</h1>
+                        <h4>Amount: €{cartData.price}</h4>
+                        <h4>Quantity: {cartData.quantity}</h4>
                     </Col>
                     <Col> 
                         <Button onClick={()=>{
@@ -93,6 +94,16 @@ const CustomerCart = () =>{
                 </Row>
                 ))}
             </Col>
+
+            <Row className="justify-content-center mt-3">
+                <Col sm={6}>
+                    <div className="d-grid mt-2">
+                        <Button variant="primary btn-block" onClick={()=>{
+
+                        }}> Buy Products</Button>
+                    </div>
+                </Col>
+            </Row>
         </Container>
         </div>
     )
