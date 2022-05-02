@@ -2,6 +2,7 @@ const express = require('express');
 const Cart = require('../../models/Cart');
 const Product = require('../../models/Product')
 const Customer = require('../../models/Customer');
+const PurchaseHistory = require('../../models/PurchaseHistory')
 const session = require('express-session');
 const router = express.Router()
 
@@ -33,9 +34,6 @@ router.post("/add/:id", async(req, res)=>{
         })
 
         console.log(updateCart)
-
-
-        
         //send back to client
         res.status(200).send(`Product named ${newItem.name} added to your cart`)
     }
@@ -55,6 +53,48 @@ router.get("/all", async (req, res)=>{
         res.send({
             "cartItems": cart.items
         })
+    }
+
+    else{
+        console.log("Not authorized to make this request")
+        res.status(404).send("Unauthorized")
+    }
+})
+
+router.post("/checkout", async (req, res)=>{
+    const sessCustomer = req.session.customer;
+    if(sessCustomer){
+
+        let totalCost = 0;
+
+        const cart = await Cart.findOne({
+            customer: req.session.customer.id
+        })
+
+        //update the stocklevels
+        for (let i=0; i<cart.items.length; i++){
+            const product = await Product.findById(cart.items[i].productId)
+            const newStockLevel = product.stockLevel - cart.items[i].quantity;
+            await product.update({stockLevel: newStockLevel})
+            //await product.update({$inc:{stockLevel : -cart.items[i].quantity}})
+            const cost = cart.items[i].price * cart.items[i].quantity;
+            totalCost+=cost;
+        }
+
+        const newPurchase = new PurchaseHistory({
+            customer: req.session.customer.id,
+            items: cart.items,
+            bill: totalCost
+        })
+
+        await newPurchase.save()
+
+        //deleting cart
+        await Cart.findByIdAndDelete(cart._id)
+
+        res.status(200).send(`Purchase of ${newPurchase.totalCost} has been made. Cart has been deleted`)
+
+
     }
 
     else{

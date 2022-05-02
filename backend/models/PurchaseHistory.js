@@ -6,12 +6,24 @@ const PurchaseHistorySchema = new mongoose.Schema({
         ref: "Customer"
     },
 
-    products: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Product"
-        }
-    ],
+    items: [
+    {
+        productId:{type: String},
+        name: {type: String},
+        quantity:{
+            type: Number,
+            required: true,
+            min: [1, 'Quantity cannot be less than 1.'],
+            default: 1
+        },
+        price: {type: Number}
+    }],
+        
+    bill:{
+        type: Number,
+        required: true,
+        default: 0
+    }, 
 
     date:{
         type: Date,
@@ -19,4 +31,4 @@ const PurchaseHistorySchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Customer', PurchaseHistorySchema)
+module.exports = mongoose.model('PurchaseHistory', PurchaseHistorySchema)

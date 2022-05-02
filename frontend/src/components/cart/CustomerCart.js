@@ -38,6 +38,28 @@ const CustomerCart = () =>{
         })
     }
 
+    const buyProducts = async () =>{
+        fetch(`http://localhost:4000/api/carts/checkout`, {
+            credentials: 'include',
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                
+            })
+        })
+        .catch((err) => {
+            console.error(err)
+        })
+        .then(async res => {
+            if(!res.ok){
+                alert(await res.text())
+            }
+            else{
+                alert(await res.text())
+            }
+        })
+    }
+
     const removeFromCart = (id) =>{
         fetch(`http://localhost:4000/api/products/remove-from-cart/${id}`, {
             credentials: 'include',
@@ -99,7 +121,7 @@ const CustomerCart = () =>{
                 <Col sm={6}>
                     <div className="d-grid mt-2">
                         <Button variant="primary btn-block" onClick={()=>{
-
+                            buyProducts()
                         }}> Buy Products</Button>
                     </div>
                 </Col>
