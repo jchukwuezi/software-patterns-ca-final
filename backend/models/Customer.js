@@ -19,14 +19,7 @@ const CustomerSchema = new mongoose.Schema({
     password:{
         type: String,
         required: true
-    },
-
-    reviews: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Review"
-        }
-    ]
+    }
 })
 
 module.exports = mongoose.model('Customer', CustomerSchema)
